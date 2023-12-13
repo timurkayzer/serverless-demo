@@ -1,0 +1,16 @@
+{
+  "name": "aws-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serverless-s3-sync": "^3.2.0",
+    "serverless-webpack": "^5.13.0"
+  }
+}

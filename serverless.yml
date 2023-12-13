@@ -1,0 +1,52 @@
+service: node-aws-backend
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: serverless-user
+
+functions:
+  getUser:
+    handler: lambdas/controllers/getUser.handler
+    events: 
+      - http:
+          path: get-user/{ID}
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    TestKaiserBucketUpload:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: timurkayzerbucket123123
+    TestKaiserDynamoDb:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.tableName}
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+
+# plugins:
+  # - serverless-s3-sync
+  # - serverless-webpack
+
+# package:
+#   individually: true
+
+custom:
+  tableName: player-points
+  # s3Sync:
+  #   - bucketName: timurkayzerbucket123123
+  #     localdir: bucket-storage
+
+package:
+  exclude:
+    - node_modules/**
